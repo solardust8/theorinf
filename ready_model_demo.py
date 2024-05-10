@@ -22,8 +22,8 @@ test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
 
 w, h = 128, 128
-b = 2
-bt = 2
+b = 1
+bt = 1
 
 
 MODEL = ResidualAE().to(DEVICE)
@@ -33,5 +33,5 @@ MODEL.eval()
 import faulthandler; faulthandler.enable()
 
 imgs_decoded, imgsQ_decoded, bpp = process_images(test_loader, MODEL, DEVICE, b, w, h)
-display_images_and_save_pdf(test_dataset, imgs_decoded, imgsQ_decoded, bpp, 'output.pdf', NumImagesToShow=5)
+display_images_and_save_pdf(test_dataset, imgs_decoded, imgsQ_decoded, bpp, './misc/output3.jpg', NumImagesToShow=5)
 

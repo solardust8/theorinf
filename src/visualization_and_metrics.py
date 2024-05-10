@@ -9,6 +9,7 @@ from matplotlib import pyplot as plt
 import copy
 
 to_pil_transform = transforms.ToPILImage()
+to_tensor_transform = transforms.ToTensor()
 
 
 def PSNR_RGB(image1, image2):
@@ -87,14 +88,15 @@ def display_images_and_save_pdf(test_dataset, imgs_decoded, imgsQ_decoded, bpp, 
 
     for i in range(NumImagesToShow):
         jpeg_img, JPEGQP, JPEGrealbpp, JPEGrealpsnr = JPEGRDSingleImage(test_dataset[i], bpp[i])
-        psnr_jpeg.append(JPEGrealpsnr)
+        psnr_rr = PSNR(test_dataset[i], to_tensor_transform(jpeg_img))
+        psnr_jpeg.append(psnr_rr)
         plt.subplot(rows, cols, 3 * cols + i + 1)
         plt.imshow(jpeg_img, interpolation="nearest")
-        plt.title(f"PSNR: {JPEGrealpsnr:.2f} | BPP: {JPEGrealbpp:.2f}", fontsize=10)
+        plt.title(f"PSNR: {psnr_rr:.2f} | BPP: {JPEGrealbpp:.2f}", fontsize=10)
         plt.axis('off')
 
     plt.tight_layout()
     if filepath is not None:
-        plt.savefig(filepath, format='pdf')
+        plt.savefig(filepath, format='jpg')
     return fig, np.mean(psnr_decoded), np.mean(psnr_decoded_q), np.mean(psnr_jpeg)
 
