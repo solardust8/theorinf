@@ -1,8 +1,8 @@
-from torchvision import transforms
 from PIL import Image
 import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset
+from torchvision import transforms
 
 from matplotlib import pyplot as plt
 import numpy as np
@@ -14,8 +14,13 @@ TEST_FOLDER = os.path.join('..', 'data', 'test')
 CKPT_PATH = os.path.join('..', 'weights')
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
+DEFAULT_TRANSFORM = transforms.Compose([
+    transforms.Resize((128, 128)),
+    transforms.ToTensor()
+])
+
 class ImageDataset(Dataset):
-    def __init__(self, foldername, augfoldername=None, transform=None):
+    def __init__(self, foldername, augfoldername=None, transform=DEFAULT_TRANSFORM):
         files_as_is = [os.path.join(foldername, f) for f in os.listdir(foldername) if f.endswith(('.png', '.jpg', '.jpeg'))]
         aug_files = []
         if not augfoldername is None:
