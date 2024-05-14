@@ -33,8 +33,8 @@ def process_images(test_loader, model, device, b, w, h):
     with torch.no_grad():
         for test_batch in test_loader:
             test_batch = test_batch.to(device)
-            encoded_images = model.Encoder(test_batch)
-            decoded_images = model.Decoder(encoded_images)
+            encoded_images = model.encoder(test_batch)
+            decoded_images = model.decoder(encoded_images)
 
             imgs_encoded.append(encoded_images.cpu().detach())
             imgs_decoded.append(decoded_images.cpu().detach())
@@ -72,8 +72,9 @@ def process_images(test_loader, model, device, b, w, h):
     with torch.no_grad():
         for deq_img in dequantized_denorm_imgs_decoded:
             deq_img = deq_img.to(device)
-            decoded_imgQ = model.Decoder(deq_img)
-
+            #print(deq_img.shape)
+            decoded_imgQ = model.decoder(deq_img.unsqueeze(0))
+            decoded_imgQ = decoded_imgQ.squeeze(0)
             imgsQ_decoded.append(decoded_imgQ.cpu().detach())
 
     imgsQ_decoded = torch.stack(imgsQ_decoded)

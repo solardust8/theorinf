@@ -26,15 +26,15 @@
 
 **Квантование с b=2**
 
-![](/misc/output.jpg)
+![](/misc/output2.jpg)
 
 **Квантование с b=3**
 
-![](/misc/output2.jpg)
+![](/misc/output3.jpg)
 
 **Квантование с b=1**
 
-![](/misc/output3.jpg)
+![](/misc/output.jpg)
 
 
 ## Сравнение
