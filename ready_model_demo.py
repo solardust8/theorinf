@@ -22,11 +22,11 @@ test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
 
 w, h = 128, 128
-b = 5
-bt = 5
+b = 3
+bt = 3
 
 
-MODEL = ResAE().to(DEVICE)
+MODEL = ResAE(activation=nn.Mish()).to(DEVICE)
 MODEL.load_state_dict(torch.load(WEIGHTS, map_location=torch.device(DEVICE)))
 MODEL.eval()
 

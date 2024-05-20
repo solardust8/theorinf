@@ -15,9 +15,12 @@ CKPT_PATH = os.path.join('..', 'weights')
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 DEFAULT_TRANSFORM = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.ToTensor()
+        #transforms.Resize((128, 128), interpolation=transforms.InterpolationMode.BICUBIC),
+        #transforms.CenterCrop((128,128)),
+        transforms.ToTensor(),
+        #transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+
 
 class ImageDataset(Dataset):
     def __init__(self, foldername, augfoldername=None, transform=DEFAULT_TRANSFORM):
